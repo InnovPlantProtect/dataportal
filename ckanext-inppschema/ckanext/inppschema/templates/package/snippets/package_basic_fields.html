@@ -1,0 +1,140 @@
+{% ckan_extends %}
+
+{# This file adds our custom fields to the editing form #}
+{# Original is here: /usr/lib/ckan/default/src/ckan/ckan/templates/package/snippets/package_basic_fields.html #}
+{# The macros are defined in: /usr/lib/ckan/default/src/ckan/ckan/templates-bs2/macros/form.html #}
+
+{# These fields are deliberately empty to override the Description in the original #}
+{# so we can re-implement it below in the correct place on the page #}
+{% block package_basic_fields_description %}
+{% endblock %}
+{% block package_basic_fields_tags %}
+{% endblock %}
+
+{% block package_basic_fields_custom %}
+
+  {# These are COPIED from the original so that they appear above not below #}
+  {# They are also renamed for INPP to Abstract and Keywords / Tags #}
+
+  {{ form.markdown('notes', id='field-notes', label=_('Abstract'), placeholder=_('eg. Some useful notes about the data'), value=data.notes, error=errors.notes) }}
+  {% set tag_attrs = {'data-module': 'autocomplete', 'data-module-tags': '', 'data-module-source': '/api/2/util/tag/autocomplete?incomplete=?'} %}
+  {{ form.input('tag_string', id='field-tags', label=_('Keywords / Tags'), placeholder=_('eg. economy, mental health, government'), value=data.tag_string, error=errors.tags, classes=['control-full'], attrs=tag_attrs) }}
+
+  {# The following is REPLACED by our metadata_form_to_ckan.sh script so DO NOT EDIT #}
+  {# INPPSCHEMA_BASICFIELDS_START #}
+<div class="form-group control-medium">
+  <label for="field-inpp_region" class="control-label">Region</label>
+  <div class="controls">
+    <select id="field-inpp_region" name="inpp_region" data-module="autocomplete">
+      <option value="PT" {{ "selected " if "PT" == data['inpp_region'] }} >Portugal</option>
+      <option value="ES" {{ "selected " if "ES" == data['inpp_region'] }} >Spain</option>
+      <option value="XX" {{ "selected " if "XX" == data['inpp_region'] }} >Unknown</option>
+    </select>
+  </div>
+</div>
+  {{ form.input('inpp_language', label=_('Language'), id='field-inpp_language', placeholder=_('Language code: eng, spa, pt, ita, fre'), value=data.inpp_language, error=errors.inpp_language, classes=['control-medium']) }}
+<div class="form-group control-medium">
+  <label for="field-inpp_topic_category" class="control-label">Topic Category</label>
+  <div class="controls">
+    <select id="field-inpp_topic_category" name="inpp_topic_category" data-module="autocomplete">
+      <option value="biota" {{ "selected " if "biota" == data['inpp_topic_category'] }} >Biota; flora and/or fauna in natural environment</option>
+      <option value="boundaries" {{ "selected " if "boundaries" == data['inpp_topic_category'] }} >Boundaries; legal land descriptions</option>
+      <option value="atmosphere" {{ "selected " if "atmosphere" == data['inpp_topic_category'] }} >Climatology - meteorology - atmosphere</option>
+      <option value="economy" {{ "selected " if "economy" == data['inpp_topic_category'] }} >Economy; economic activities, conditions and employment</option>
+      <option value="elevation" {{ "selected " if "elevation" == data['inpp_topic_category'] }} >Elevation; height above or below sea level</option>
+      <option value="environment" {{ "selected " if "environment" == data['inpp_topic_category'] }} >Environment; environmental resources, protection and conservation</option>
+      <option value="farming" {{ "selected " if "farming" == data['inpp_topic_category'] }} >Farming; animals or plants</option>
+      <option value="geoscientific" {{ "selected " if "geoscientific" == data['inpp_topic_category'] }} >Geoscientific information; earth sciences</option>
+      <option value="health" {{ "selected " if "health" == data['inpp_topic_category'] }} >Health; health services, human ecology, safety</option>
+      <option value="imagery" {{ "selected " if "imagery" == data['inpp_topic_category'] }} >Imagery base maps earth cover</option>
+      <option value="inlandwaters" {{ "selected " if "inlandwaters" == data['inpp_topic_category'] }} >Inland waters; drainage systems</option>
+      <option value="intelligence" {{ "selected " if "intelligence" == data['inpp_topic_category'] }} >Intelligence - Military; bases, structures, activities</option>
+      <option value="location" {{ "selected " if "location" == data['inpp_topic_category'] }} >Location; positional information and services</option>
+      <option value="ocean" {{ "selected " if "ocean" == data['inpp_topic_category'] }} >Oceans; salt water bodies (not inland waters)</option>
+      <option value="cadastre" {{ "selected " if "cadastre" == data['inpp_topic_category'] }} >Planning Cadastre; future land use</option>
+      <option value="society" {{ "selected " if "society" == data['inpp_topic_category'] }} >Society; and culture</option>
+      <option value="structure" {{ "selected " if "structure" == data['inpp_topic_category'] }} >Structure; man-made construction</option>
+      <option value="transport" {{ "selected " if "transport" == data['inpp_topic_category'] }} >Transportation; of persons and goods</option>
+      <option value="utilities - communication" {{ "selected " if "utilities - communication" == data['inpp_topic_category'] }} >Utilities - Communication; energy, water and waste systems and communications infrastructure and services</option>
+    </select>
+  </div>
+</div>
+  {{ form.input('inpp_temporal_extent_start', label=_('Temporal Extent Start'), id='field-inpp_temporal_extent_start', placeholder=_('Start date in the form YYYY-MM-DD or YYYY'), value=data.inpp_temporal_extent_start, error=errors.inpp_temporal_extent_start, classes=['control-medium']) }}
+  {{ form.input('inpp_temporal_extent_end', label=_('Temporal Extent End'), id='field-inpp_temporal_extent_end', placeholder=_('End date in the form YYYY-MM-DD or YYYY'), value=data.inpp_temporal_extent_end, error=errors.inpp_temporal_extent_end, classes=['control-medium']) }}
+  {{ form.input('inpp_dataset_reference_date', label=_('Dataset Reference Date'), id='field-inpp_dataset_reference_date', placeholder=_('Date that identifies the currency of the publication data'), value=data.inpp_dataset_reference_date, error=errors.inpp_dataset_reference_date, classes=['control-medium']) }}
+  {{ form.input('inpp_lineage', label=_('Lineage'), id='field-inpp_lineage', placeholder=_('How the data was created, source, process, method updating, quality control'), value=data.inpp_lineage, error=errors.inpp_lineage, classes=['control-medium']) }}
+  {{ form.input('inpp_west_longitude', label=_('West Longitude'), id='field-inpp_west_longitude', placeholder=_('Decimal degrees (dd.ddd) with plus or minus as necessary'), value=data.inpp_west_longitude, error=errors.inpp_west_longitude, classes=['control-medium']) }}
+  {{ form.input('inpp_south_latitude', label=_('South Latitude'), id='field-inpp_south_latitude', placeholder=_('Decimal degrees (dd.ddd) with plus or minus as necessary'), value=data.inpp_south_latitude, error=errors.inpp_south_latitude, classes=['control-medium']) }}
+  {{ form.input('inpp_east_longitude', label=_('East Longitude'), id='field-inpp_east_longitude', placeholder=_('Decimal degrees (dd.ddd) with plus or minus as necessary'), value=data.inpp_east_longitude, error=errors.inpp_east_longitude, classes=['control-medium']) }}
+  {{ form.input('inpp_north_latitude', label=_('North Latitude'), id='field-inpp_north_latitude', placeholder=_('Decimal degrees (dd.ddd) with plus or minus as necessary'), value=data.inpp_north_latitude, error=errors.inpp_north_latitude, classes=['control-medium']) }}
+  {{ form.input('inpp_spatial_reference_system', label=_('Spatial Reference System'), id='field-inpp_spatial_reference_system', placeholder=_('EPSG:nnnn, or WGS84, UTM30S, etc'), value=data.inpp_spatial_reference_system, error=errors.inpp_spatial_reference_system, classes=['control-medium']) }}
+  {{ form.input('inpp_responsible_organisation_name', label=_('Responsible Organisation Name'), id='field-inpp_responsible_organisation_name', placeholder=_('Multiple organisations may be provided'), value=data.inpp_responsible_organisation_name, error=errors.inpp_responsible_organisation_name, classes=['control-medium']) }}
+  {{ form.input('inpp_contact_mail_address', label=_('Contact Mail Address'), id='field-inpp_contact_mail_address', placeholder=_('Mail address'), value=data.inpp_contact_mail_address, error=errors.inpp_contact_mail_address, classes=['control-medium']) }}
+  {{ form.input('inpp_responsible_party_role', label=_('Responsible Party Role'), id='field-inpp_responsible_party_role', placeholder=_('Select from list in documentation'), value=data.inpp_responsible_party_role, error=errors.inpp_responsible_party_role, classes=['control-medium']) }}
+<div class="form-group control-medium">
+  <label for="field-inpp_access_limitations" class="control-label">Access Limitations</label>
+  <div class="controls">
+    <select id="field-inpp_access_limitations" name="inpp_access_limitations" data-module="autocomplete">
+      <option value="open" {{ "selected " if "open" == data['inpp_access_limitations'] }} >Open access</option>
+      <option value="env-govt" {{ "selected " if "env-govt" == data['inpp_access_limitations'] }} >Restricted, data environmentally sensitive, however data is open to government departments</option>
+      <option value="env-dept" {{ "selected " if "env-dept" == data['inpp_access_limitations'] }} >Restricted, data environmentally sensitive, however data is open to members of the department</option>
+      <option value="env-rsch" {{ "selected " if "env-rsch" == data['inpp_access_limitations'] }} >Restricted, data environmentally sensitive, however data is open to researchers on the basis of a research agreement</option>
+      <option value="com-govt" {{ "selected " if "com-govt" == data['inpp_access_limitations'] }} >Restricted, data commercially sensitive, however data is open to government departments</option>
+      <option value="com-dept" {{ "selected " if "com-dept" == data['inpp_access_limitations'] }} >Restricted, data commercially sensitive, however data is open to member of the department</option>
+      <option value="com-rsch" {{ "selected " if "com-rsch" == data['inpp_access_limitations'] }} >Restricted, data commercially sensitive, however anonymised data is open to researchers on the basis of a research agreement</option>
+      <option value="mil" {{ "selected " if "mil" == data['inpp_access_limitations'] }} >Restricted, military sensitivity</option>
+      <option value="env-com-govt" {{ "selected " if "env-com-govt" == data['inpp_access_limitations'] }} >Restricted, data environmentally and commercially sensitive, however data is open to government departments</option>
+      <option value="env-com-dept" {{ "selected " if "env-com-dept" == data['inpp_access_limitations'] }} >Restricted, data environmentally and commercially sensitive, however data is open to members of the department</option>
+      <option value="env-com-rsrc" {{ "selected " if "env-com-rsrc" == data['inpp_access_limitations'] }} >Restricted, data environmentally and commercially sensitive, however anonymised data is open to researchers on the basis of a research agreement</option>
+      <option value="govt" {{ "selected " if "govt" == data['inpp_access_limitations'] }} >Restricted to government departments</option>
+      <option value="org" {{ "selected " if "org" == data['inpp_access_limitations'] }} >Restricted to the organisation</option>
+      <option value="pub" {{ "selected " if "pub" == data['inpp_access_limitations'] }} >Restricted until publication</option>
+      <option value="comm" {{ "selected " if "comm" == data['inpp_access_limitations'] }} >Restricted, data commercially sensitive</option>
+      <option value="env" {{ "selected " if "env" == data['inpp_access_limitations'] }} >Restricted, data environmentally sensitive</option>
+      <option value="soc" {{ "selected " if "soc" == data['inpp_access_limitations'] }} >Restricted, data socially sensitive</option>
+      <option value="licence" {{ "selected " if "licence" == data['inpp_access_limitations'] }} >Restricted, licence apply</option>
+      <option value="dat_cus" {{ "selected " if "dat_cus" == data['inpp_access_limitations'] }} >Restricted, send data request to data custodian</option>
+      <option value="dat_own" {{ "selected " if "dat_own" == data['inpp_access_limitations'] }} >Restricted, send data request to data owner</option>
+      <option value="pnt_con" {{ "selected " if "pnt_con" == data['inpp_access_limitations'] }} >Restricted, send data request to point of contact</option>
+      <option value="dat_cus_fees" {{ "selected " if "dat_cus_fees" == data['inpp_access_limitations'] }} >Restricted, send data request to data custodian. Fees may apply</option>
+      <option value="fees" {{ "selected " if "fees" == data['inpp_access_limitations'] }} >Restricted, fees may apply</option>
+    </select>
+  </div>
+</div>
+<div class="form-group control-medium">
+  <label for="field-inpp_use_constraints" class="control-label">Use Constraints</label>
+  <div class="controls">
+    <select id="field-inpp_use_constraints" name="inpp_use_constraints" data-module="autocomplete">
+      <option value="open" {{ "selected " if "open" == data['inpp_use_constraints'] }} >Open</option>
+      <option value="notcommercial" {{ "selected " if "notcommercial" == data['inpp_use_constraints'] }} >Not for commercial use</option>
+      <option value="researchonly" {{ "selected " if "researchonly" == data['inpp_use_constraints'] }} >To be used for research only</option>
+      <option value="openbut" {{ "selected " if "openbut" == data['inpp_use_constraints'] }} >Open, but copyright and/or Intellectual Property Rights apply</option>
+      <option value="restricted" {{ "selected " if "restricted" == data['inpp_use_constraints'] }} >Restricted</option>
+      <option value="restrictedbut" {{ "selected " if "restrictedbut" == data['inpp_use_constraints'] }} >Restricted, but open subject to limitations and prior agreement with responsible organisation. Copyright must be cited</option>
+    </select>
+  </div>
+</div>
+  {{ form.input('inpp_data_format', label=_('Data Format'), id='field-inpp_data_format', placeholder=_('eg. shape, tiff, jpeg, csv, ascii'), value=data.inpp_data_format, error=errors.inpp_data_format, classes=['control-medium']) }}
+  {{ form.input('inpp_update_frequency', label=_('Update Frequency'), id='field-inpp_update_frequency', placeholder=_('How often the data resource is updated: continual, weekly, fortnightly, monthly, quarterly, annually, biannually, as needed, irregular, one-off, not planned, unknown'), value=data.inpp_update_frequency, error=errors.inpp_update_frequency, classes=['control-medium']) }}
+  {{ form.input('inpp_accuracy', label=_('Accuracy'), id='field-inpp_accuracy', placeholder=_('Accuracy of measurements, eg. 1 metre'), value=data.inpp_accuracy, error=errors.inpp_accuracy, classes=['control-medium']) }}
+  {{ form.input('inpp_resource_type', label=_('Resource Type'), id='field-inpp_resource_type', placeholder=_('Dataset; Data series; Database; nonGeographicalDataset; report'), value=data.inpp_resource_type, error=errors.inpp_resource_type, classes=['control-medium']) }}
+  {{ form.input('inpp_original_title', label=_('Original Title'), id='field-inpp_original_title', placeholder=_('Original file name'), value=data.inpp_original_title, error=errors.inpp_original_title, classes=['control-medium']) }}
+  {{ form.input('inpp_metadata_date', label=_('Metadata Date'), id='field-inpp_metadata_date', placeholder=_('Date of original metadata in the form YYYY-MM-DD'), value=data.inpp_metadata_date, error=errors.inpp_metadata_date, classes=['control-medium']) }}
+  {{ form.input('inpp_metadata_point_of_contact', label=_('Metadata Point of Contact'), id='field-inpp_metadata_point_of_contact', placeholder=_('Organisation responsible'), value=data.inpp_metadata_point_of_contact, error=errors.inpp_metadata_point_of_contact, classes=['control-medium']) }}
+<div class="form-group control-medium">
+  <label for="field-inpp_contact_consent" class="control-label">Contact Consent</label>
+  <div class="controls">
+    <select id="field-inpp_contact_consent" name="inpp_contact_consent" data-module="autocomplete">
+      <option value="0" {{ "selected " if "0" == data['inpp_contact_consent'] }} >Contact details hidden</option>
+      <option value="1" {{ "selected " if "1" == data['inpp_contact_consent'] }} >Contact details published</option>
+    </select>
+  </div>
+</div>
+  {{ form.input('inpp_unique_resource_id', label=_('Unique Resource ID'), id='field-inpp_unique_resource_id', placeholder=_('eg. FK-XXX-1'), value=data.inpp_unique_resource_id, error=errors.inpp_unique_resource_id, classes=['control-medium']) }}
+  {# INPPSCHEMA_BASICFIELDS_END #}
+
+  {# This additional field shows the spatial GeoJSON field #}
+  {# We always want this shown (normal CKAN treats it as an 'extra') #}
+  {{ form.input('spatial', label=_('Geographic Location'), id='field-spatial', placeholder=_('GeoJSON format ONLY (not for human use)'), value=data.spatial, error=errors.spatial, classes=['control-medium']) }}
+
+{% endblock %}

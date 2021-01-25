@@ -1,0 +1,19 @@
+biota	Biota; flora and/or fauna in natural environment
+boundaries	Boundaries; legal land descriptions
+atmosphere	Climatology - meteorology - atmosphere
+economy	Economy; economic activities, conditions and employment
+elevation	Elevation; height above or below sea level
+environment	Environment; environmental resources, protection and conservation
+farming	Farming; animals or plants
+geoscientific	Geoscientific information; earth sciences
+health	Health; health services, human ecology, safety
+imagery	Imagery base maps earth cover
+inlandwaters	Inland waters; drainage systems
+intelligence	Intelligence - Military; bases, structures, activities
+location	Location; positional information and services
+ocean	Oceans; salt water bodies (not inland waters)
+cadastre	Planning Cadastre; future land use
+society	Society; and culture
+structure	Structure; man-made construction
+transport	Transportation; of persons and goods
+utilities - communication	Utilities - Communication; energy, water and waste systems and communications infrastructure and services
