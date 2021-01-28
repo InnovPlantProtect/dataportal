@@ -1,0 +1,16 @@
+{% ckan_extends %}
+{# Extend the 'promoted' section of the home page #}
+{# Note that some text is also configured in the ckan config file (see the ckan.site_* items) #}
+
+{# This text overlays the bottom of the image shown in the 'promoted' section #}
+{% block home_image_caption %}
+  {{ _("InnovPlantProtect Association") }}
+{% endblock %}
+
+{# Replace the 'promoted' image with our logo #}
+{% block home_image_content %}
+  <a class="media-image" href="#">
+    <img src="/inpp420x220.png" alt="InPP logo"
+         width="420" height="220" />
+  </a>
+{% endblock %}

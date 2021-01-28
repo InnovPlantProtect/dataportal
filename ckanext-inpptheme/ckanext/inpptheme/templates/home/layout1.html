@@ -1,0 +1,63 @@
+{# We would normally use ckan_extends to modify the behaviour of the original file #}
+{# /usr/lib/ckan/default/src/ckan/ckan/templates/home/layout1.html #}
+{# however it has four squares: #}
+{#       promoted | search                #}
+{# featured_group | featured_organization #}
+{# but we only want search on the first row and a list of groups on the second row #}
+{# so we replace the whole thing layout1.html page with the content below. #}
+{# See http://docs.ckan.org/en/2.8/theming/templates.html  #}
+
+{% resource 'inpptheme/homepage-slider.css' %}
+{% resource 'inpptheme/homepage-slider.js' %}
+
+<div class="homepage-slider-ng">
+  <div class="images-wrapper">
+    <div class="text-wrapper" style="background-image:url(media/pt/DSCI5852.JPG)"></div>
+    <div class="text-wrapper" style="background-image:url(media/pt/DSCI5819.JPG);display:none;"></div>
+    <div class="text-wrapper" style="background-image:url(media/pt/DSCI2182.JPG);display:none;"></div>
+    <div class="text-wrapper" style="background-image:url(media/pt/DSCI6053.JPG);display:none;"></div>
+    <div class="text-wrapper" style="background-image:url(media/pt/DSCI6008.JPG);display:none;"></div>
+    <div class="text-wrapper" style="background-image:url(media/pt/DSCI5892.JPG);display:none;"></div>
+    <div class="text-wrapper" style="background-image:url(media/pt/DSCI6067.JPG);display:none;"></div>
+    <div class="text-wrapper" style="background-image:url(media/pt/DSCI7844.JPG);display:none;"></div>
+    <div class="text-wrapper" style="background-image:url(media/pt/DSCI0350.JPG);display:none;"></div>
+  </div>
+
+  <div class="boxes-wrapper container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-6">
+        <div class="home-box">
+          {% block search %}
+          {# we use the built-in search snippet #}
+          {% snippet 'home/snippets/search.html' %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div role="main">
+  <div class="container">
+    <div class="row">
+      {# we've provided our own helper function to get a list of groups/themes #}
+      {# see plugin.py in the inpptheme plugin #}
+      {# each group is rendered using the code in this file: #}
+      {# "/usr/lib/ckan/default/src/ckan/ckan/templates/group/snippets/group_item.html" #}
+      {% snippet 'group/snippets/group_list.html', groups=h.inpptheme_get_groups_list() %}
+    </div>
+
+    <div class="row">
+        <div id="latest-addings" class="box">
+          <header class="module-heading">
+            <h2>Latest addings</h2>
+          </header>
+          <section class="module-content">
+            {# This shows the recent activity but has been modified from #}
+            {# what is in the docs to prevent raw html being displayed #}
+            {{ h.recently_changed_packages_activity_stream(limit=4)|safe }}
+          </section>
+        </div>
+      </div>
+  </div>
+</div>

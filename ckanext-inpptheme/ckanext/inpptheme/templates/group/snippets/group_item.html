@@ -1,0 +1,20 @@
+{% ckan_extends %}
+{# this file extends the original #}
+{# /usr/lib/ckan/default/src/ckan/ckan/templates/group/snippets/group_item.html #}
+{# so that we can change or replace blocks #}
+
+{# remove the 'number of datasets' from the description of the group #}
+{# but only if the homepage variable is 1, which is only set in layout1.html #}
+
+{% block datasets %}
+  {% if homepage==1 %}
+  {% else %}
+    {{ super() }}
+  {% endif %}
+{% endblock datasets %}
+
+{# we have copied exactly the original <img> tag but added inpp_group_icon to the list of classes #}
+{# this will allow you to add your own CSS in inppckan.css eg. to make the icons smaller #}
+{% block image %}
+  <img src="{{ group.image_display_url or h.url_for_static('/base/images/placeholder-group.png') }}" alt="{{ group.name }}" class="media-image img-responsive inpp_group_icon">
+{% endblock %}

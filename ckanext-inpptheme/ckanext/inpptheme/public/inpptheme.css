@@ -1,0 +1,60 @@
+/* This file provides customized CSS for SAERI */
+
+.inpp_home_page_box {
+  height: 300px;
+  opacity: 0.5;
+}
+
+/* homepage customization theme colours */
+
+/* INPP's green = #92cd8b */
+.account-masthead,
+.homepage .module-search .tags {
+/*	background: #92cd8b; */
+}
+
+/* INPP's brown = #8b5e3c */
+.masthead,
+.site-footer,
+.homepage .module-search .module-content {
+/*	background: #8b5e3c; */
+}
+
+.account-masthead .account .notifications a span,
+.account-masthead .account ul li a:hover,
+.masthead .navigation .nav-pills li a:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.masthead .navigation .nav-pills li.active a {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+.activity {
+	background: none;
+}
+
+span.actor,
+.activity .item .icon {
+	display: none;
+}
+
+.activity .item p {
+	visibility: hidden;
+	margin-left: 0;
+	font-size: 1.2em;
+}
+
+.activity .item p > span {
+	visibility: visible;
+	float: left;
+}
+
+.activity .item .date {
+	padding-left: 1em;
+	line-height: 2em;
+}
+
+#latest-addings {
+	margin-top: 2em;
+}
