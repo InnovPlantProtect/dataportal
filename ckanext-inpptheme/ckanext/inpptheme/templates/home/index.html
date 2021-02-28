@@ -1,1 +1,11 @@
 {% ckan_extends %}
+
+{% block styles %}
+  {{ super() }}
+  {% asset 'inpptheme/homepage-slider_css' %}
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  {% asset 'inpptheme/homepage-slider_js' %}
+{% endblock %}
