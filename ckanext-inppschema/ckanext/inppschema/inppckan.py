@@ -69,7 +69,7 @@ def inppckan_convert_bbox_to_geojson(srs,top,bottom,left,right):
 
     # An explicit NULL is ok, no coordinates are provided
     if top == 'NULL' and bottom == 'NULL' and left == 'NULL' and right == 'NULL':
-    	log.debug("inppckan_convert_bbox_to_geojson all NULL")
+        log.debug("inppckan_convert_bbox_to_geojson all NULL")
         return ''
 
     # Try to convert the string to floating point numbers
@@ -91,8 +91,8 @@ def inppckan_convert_bbox_to_geojson(srs,top,bottom,left,right):
     # If only one corner is given then we could make a Point not a Polygon
     # but we make a Polygon because in reality most data relates to an area.
     if top == 0 and right == 0 and bottom != 0 and left != 0:
-    	top = bottom
-    	right = left
+        top = bottom
+        right = left
     # Otherwise any zero is bad:
     elif top == 0 or bottom == 0 or left == 0 or right == 0:
         log.error("inppckan_convert_bbox_to_geojson ERROR zero in %s %s %s %s %s" % (srs,top,bottom,left,right))
@@ -233,5 +233,4 @@ if __name__ == "__main__":
     # Open the connection to the CKAN server
     ckan = RemoteCKAN('http://%s' % ckan_ip, apikey=api_key, user_agent='user_agent')
 
-    print(inppckan_map_topic_category_to_group('biota'))
     #print(inppckan_convert_bbox_to_geojson(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]))

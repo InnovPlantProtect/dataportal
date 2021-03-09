@@ -46,7 +46,7 @@ from ckan.logic.action.update import package_update
 import json
 import logging
 import mimetypes
-import inppckan
+from . import inppckan # XXX ARB why need relative . notation now?
 
 # Doesn't work (is ignored): logging.basicConfig(filename="/tmp/ckan_debug.log", level=logging.DEBUG) # XXX arb ???
 log = logging.getLogger(__name__)

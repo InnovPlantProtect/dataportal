@@ -44,14 +44,24 @@ pip install -r dev-requirements.txt
 ```
 then add `restricted` to the `ckan.plugins` line in your ckan config file and restart the web server with `sudo service nginx restart` and `sudo supervisorctl restart ckan-uwsgi:*`  
 
-If you get an Internal Server Error after restarting apache then check the error log `/var/log/apache2/ckan_default.error.log` and it might show an IOError Permission Denied trying to update a translation file, eg. `fr.js`. If so use `sudo chmod 666 filename` where the filename is the full path name shown in the error log such as `/usr/lib/ckan/default/src/ckan/ckan/public/base/i18n/fr.js`
+If you get an Internal Server Error after restarting the web server then check the error log and it might show an IOError Permission Denied trying to update a translation file, eg. `fr.js`. If so, use `sudo chmod 666 filename` where the filename is the full path name shown in the error log such as `/usr/lib/ckan/default/src/ckan/ckan/public/base/i18n/fr.js`
 
 See the CKAN documentation for installing the `spatial` plugins.
 
 ## Configuration
 
+See ckanext/inppschema/README.md for more details.
+
 The `restricted` plugin needs to be able to send emails so please make sure you have configured CKAN appropriately, see
 https://docs.ckan.org/en/2.9/maintaining/configuration.html?#email-settings
+
+## Troubleshooting
+
+To run a testing version of the web server use `ckan -c /etc/ckan/default/ckan.ini run` then the error messages will appear on screen.
+
+If using apache (ckan 2.8) the log file is `/var/log/apache2/ckan_default.error.log`. The web server can be restarted with `sudo service apache2 restart`
+
+If using nginx (ckan 2.9) the log file is in `/var/log`.  The web server can be restarted with `sudo service nginx restart`
 
 ## Updating
 

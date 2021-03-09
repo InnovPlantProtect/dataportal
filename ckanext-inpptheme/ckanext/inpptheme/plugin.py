@@ -62,7 +62,7 @@ class InppthemePlugin(plugins.SingletonPlugin):
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_public_directory(config_, 'public')
-        toolkit.add_resource('fanstatic', 'inpptheme') # needed to add .js
+        toolkit.add_resource('webassets', 'inpptheme') # needed, to add .js and .css. webassets is the directory, inpptheme is used in the jinja2 asset tag
 
     def dataset_facets(self, facets_dict, package_type):
         '''Add new search facet (filter) for datasets.
